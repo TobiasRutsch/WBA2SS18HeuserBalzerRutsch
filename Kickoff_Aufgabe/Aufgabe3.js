@@ -17,7 +17,7 @@ fs.readFile(__dirname+"/staedte.json", function(err,data){
                 else{ return 0; }
         });
 
-        fs.writeFile(__dirname+"staedte_sortiert.json", JSON.stringify(staedte), function(err) {
+        fs.writeFile(__dirname+"/staedte_sortiert.json", JSON.stringify(staedte), function(err) {
                 if(err) throw err;
                 console.log("The file has been saved!");
 
