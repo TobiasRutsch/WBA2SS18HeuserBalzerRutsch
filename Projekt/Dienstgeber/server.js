@@ -13,13 +13,13 @@ const settings = {
 //modul fuer favtank
 const favtank = require('./res/favtank');
 app.use("/favtank", favtank);
-
+*/
 const price = require('./res/price');
-app.use("/price", favtank);
+app.use("/price", price);
 
 const distance = require('./res/distance');
-app.use("/distance", favtank);
-*/
+app.use("/distance", distance);
+
 const optimal = require('./res/optimal');
 app.use("/optimal", optimal);
 

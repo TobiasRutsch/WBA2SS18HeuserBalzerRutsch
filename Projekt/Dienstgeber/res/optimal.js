@@ -24,7 +24,7 @@ router.get('/:lat,:lng', function (req, res) {
         request(gurl, { json: true }, (err, res3, body) => {
             if (err) { return console.log(err); }
             var result = JSON.stringify(body);
-            res.send("Die Tankstelle ist " + body.rows[0].elements[0].distance.text + "km entfernt.");
+            res.send("Die Tankstelle ist " + body.rows[0].elements[0].distance.text + "km entfernt." + result);
 
         });
     });
