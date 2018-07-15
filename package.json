@@ -18,6 +18,11 @@
   "homepage": "https://github.com/TobiasRutsch/WBA2SS18HeuserBalzerRutsch#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.16.3"
+    "async": "^2.6.1",
+    "curlrequest": "^1.0.1",
+    "express": "^4.16.3",
+    "faye": "^1.2.4",
+    "request": "^2.87.0",
+    "uuid-parse": "^1.0.0"
   }
 }
