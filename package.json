@@ -1,0 +1,20 @@
+{
+  "name": "tankenistsuper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "AbgabeMeilenstein2/Dienstgeber/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "AbgabeMeilenstein2/Dienstgeber/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TobiasRutsch/WBA2SS18HeuserBalzerRutsch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TobiasRutsch/WBA2SS18HeuserBalzerRutsch/issues"
+  },
+  "homepage": "https://github.com/TobiasRutsch/WBA2SS18HeuserBalzerRutsch#readme"
+}
