@@ -173,9 +173,11 @@ app.delete('/favtank', function(req, res){
 //FAYE
 
 //Server aufsetzten
-var server = http.createServer();
+var server = http.createServer(app);
 var fayeserver= new faye.NodeAdapter({mount: '/faye',timeout: 45});
 fayeserver.attach(server);
+
+
 
 //Cliet aufsezten
 var clientFaye = new faye.Client('http://localhost:'+ settings.port + '/faye');
@@ -191,6 +193,6 @@ clientFaye.subscribe('favtank/*').withChannel(function(channel, message){
 });
 
 //Auf verbindungen hören
-app.listen(settings.port, function () {
+server.listen(settings.port, function () {
    console.log("REST-Server laeuft auf Port " + settings.port);
 });
