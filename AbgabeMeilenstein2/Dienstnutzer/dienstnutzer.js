@@ -4,6 +4,7 @@ var express = require('express'),
     http = require('http'),
     faye = require('faye');
 var app = express();
+const bodyParser=require('body-parser');
 
 //Link für localhost
 var dHost = 'http://localhost';
@@ -20,23 +21,30 @@ const settings = {
 
 //GET-Requests
 //GET /optimal
-app.get('/optimal', function(req, res){
+app.get('/optimal/:lat,:lng,:verbrauch,:btype', function(req, res){
+    var lat = req.params.lat;
+    var lng = req.params.lng;
+    var verbrauch = req.params.verbrauch;
+    var btype = req.params.btype;
     //URL vervollständgen
-    var url= dURL + '/optimal'+'/50.947702,6.913183,10,diesel';
+    var url = dURL + '/optimal/' + lat + ',' + lng + ',' + verbrauch + ',' + btype;
     //Request an den Server
     request.get(url, function(err, response, body){
       //console.log(body);
 
       //Response parsen und an de Client schicken
-      body=JSON.parse(body);
+      var body=JSON.parse(body);
       res.json(body);
     });
 });
 
 //GET /price
-app.get('/price', function(req, res){
+app.get('/price/:id,lat,lng', function(req, res){
+    var id = req.params.id;
+    var lat = req.params.lat;
+    var lng = req.params.lng;
     //URL vervollständgen
-    var url= dURL + '/price'+'/51d4b50e-a095-1aa0-e100-80009459e03a,50.947702,6.913183';
+    var url= dURL + '/price/'+ id + ',' + lat + ',' + lng;
     //Request an den Server
     request.get(url, function(err, response, body){
       //console.log(body);
@@ -48,9 +56,12 @@ app.get('/price', function(req, res){
 });
 
 //GET /distance
-app.get('/distance', function(req, res){
+app.get('/distance/:id,lat,lng', function(req, res){
+    var id = req.params.id;
+    var lat = req.params.lat;
+    var lng = req.params.lng;
     //URL vervollständgen
-    var url= dURL + '/distance'+'/51d4b50e-a095-1aa0-e100-80009459e03a,50.947702,6.913183';
+    var url= dURL + '/distance/'+ id + ',' + lat + ',' + lng;
     //Request an den Server
     request.get(url, function(err, response, body){
       //console.log(body);
@@ -62,9 +73,9 @@ app.get('/distance', function(req, res){
 });
 
 //GET /favtank/*
-app.get('/favtank', function(req, res){
+app.get('/favtank/:id', function(req, res){
     // channel festlegen
-    var nutzerID=0;
+    var nutzerID=parseInt(req.params.id);
     //URL vervollständgen
     var url= dURL + '/favtank/'+ nutzerID;
     //Request an den Server
@@ -77,14 +88,16 @@ app.get('/favtank', function(req, res){
 });
 
 //PUT /favtank/*
-app.put('/favtank', function(req, res){    // channel festlegen
+app.put('/favtank/:id',bodyParser.json(), function(req, res){    // channel festlegen
     // channel festlegen
-    var nutzerID=0;
+    var nutzerID=parseInt(req.params.id);
     //URL vervollständge
     var url= dURL + '/favtank/'+ nutzerID;
 
     //Aenderungsdaten festlegen
-    var data = {
+
+    var data = req.body;
+    var SampleData = {
 	     "stations":[
          {
            "id":"60c0eefa-d2a8-4f5c-82cc-b5244ecae955"
@@ -116,12 +129,13 @@ app.put('/favtank', function(req, res){    // channel festlegen
 });
 
 //PUT /favtank/*
-app.post('/favtank', function(req, res){
+app.post('/favtank',bodyParser.json(), function(req, res){
     //URL vervollständge
     var url= dURL + '/favtank';
 
     //Inhaltsdaten festlegen
-    var data = {
+    var data = req.body;
+    var Sampledata = {
 	     "stations":[
          {
            "id":"60c0eefa-d2a8-4f5c-82cc-b5244ecae955"
@@ -157,13 +171,12 @@ app.post('/favtank', function(req, res){
     });
 });
 
-app.delete('/favtank', function(req, res){
+app.delete('/favtank/:id', function(req, res){
     // channel festlegen
-    var nutzerID=0;
+    var nutzerID = req.params.id;
     //URL vervollständge
     var url= dURL + '/favtank/'+ nutzerID;
     // channel festlegen
-    var nutzerID=0;
     //Request an den Server
     request.delete(url, function(err, response, body){
     //Ergebnis an den Client zurücksenden
